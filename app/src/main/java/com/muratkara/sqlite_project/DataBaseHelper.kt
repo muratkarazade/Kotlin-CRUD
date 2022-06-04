@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
 
 val database_name = "UserDataBase"
 val table_name = "Users"
@@ -54,6 +55,8 @@ class DataBaseHelper (  var context : Context) : SQLiteOpenHelper(context,
 
 
     }
+
+    //Verilerin okunması işlemleri
     @SuppressLint("Range")
     fun dataRead(): MutableList<User> {
         var userList:MutableList<User> = ArrayList()
@@ -75,5 +78,35 @@ class DataBaseHelper (  var context : Context) : SQLiteOpenHelper(context,
         return userList
     }
 
+    //Verilerin güncellenme işlemleri
 
+    @SuppressLint("Range")
+    fun updateData() {
+        val db = this.readableDatabase
+        var query = " Select * from $table_name"
+        var sonuc = db.rawQuery(query, null)
+        if(sonuc.moveToFirst()){
+            do {
+                var cv = ContentValues()
+                //cv.put("col_age", "188")
+                // cv.put("col_name", "sananela")
+                cv.put(col_age,(sonuc.getInt(sonuc.getColumnIndex(col_age)))+1)
+                cv.put(col_name,(sonuc.getString(sonuc.getColumnIndex(col_name)))+ " " + "Güncel")
+                db.update(table_name,cv,"$col_id=? AND $col_name=?", arrayOf(
+                    sonuc.getString(sonuc.getColumnIndex(col_id)),
+                    sonuc.getString(sonuc.getColumnIndex(col_name)))
+                )
+            }while (sonuc.moveToNext())
+        }
+        sonuc.close()
+        db.close()
+
+
+        fun deleteData(){
+            val db = this.readableDatabase
+            db.delete(table_name,null , null)
+
+        }
+
+    }
 }

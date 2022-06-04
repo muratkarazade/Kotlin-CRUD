@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.muratkara.sqlite_project.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -37,6 +38,14 @@ class MainActivity : AppCompatActivity() {
                 + data.get(i).nameSurname+ " " + data.get(i).age + "\n" )
             }
         }
+
+        // Verilerin güncellenmesi
+        binding.btnUpdate.setOnClickListener {
+            db.updateData()
+            binding.btnRead.callOnClick()
+
+        }
+
 
     }
 }

@@ -1,6 +1,6 @@
 package com.muratkara.sqlite_project
 
-class User {
+ class User {
     var id : Int = 0
     var nameSurname : String = ""
     var age : Int = 0
