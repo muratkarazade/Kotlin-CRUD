@@ -1,3 +1,5 @@
+
+
 package com.muratkara.sqlite_project
 
 import android.annotation.SuppressLint
@@ -101,12 +103,14 @@ class DataBaseHelper (  var context : Context) : SQLiteOpenHelper(context,
         sonuc.close()
         db.close()
 
+        //Verileri silmek için
+       fun deleteData(){
+           val db = this.readableDatabase
+            db.delete(database_name,null,null)
+            db.close()
+       }
 
-        fun deleteData(){
-            val db = this.readableDatabase
-            db.delete(table_name,null , null)
 
-        }
 
     }
 }

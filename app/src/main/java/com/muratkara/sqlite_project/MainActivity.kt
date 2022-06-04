@@ -45,7 +45,12 @@ class MainActivity : AppCompatActivity() {
             binding.btnRead.callOnClick()
 
         }
+        //Verileri silmek için
+        binding.btnDelete.setOnClickListener {
+        db.readableDatabase.delete(table_name,null,null)
+            binding.btnRead.performClick()
 
+        }
 
     }
 }
